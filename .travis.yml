@@ -6,10 +6,16 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-  - "pypy"
+  - "pypy-5.4"
 services:
   - docker
+
+env:
+  matrix:
+    - KV_DB=redis
+    - KV_DB=zookeeper
+
 # command to install dependencies
 install: "pip install nstruct hiredis"
 # command to run tests
-script: sudo bash -xe ci_test.sh
+script:  sudo -E bash -xe ci_test.sh

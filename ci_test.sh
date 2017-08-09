@@ -2,8 +2,8 @@
 
 # This is a hack. We are running in sudo, must start the virtualenv manually
 
-if [ "${TRAVIS_PYTHON_VERSION}" == "pypy" ]; then
-	venv=pypy
+if [ "${TRAVIS_PYTHON_VERSION:0:4}" == "pypy" ]; then
+	venv=pypy-5.4
 else
 	venv=python${TRAVIS_PYTHON_VERSION}
 fi
@@ -18,5 +18,5 @@ if [ "${TRAVIS_EVENT_TYPE}" == "cron" -o "${TRAVIS_EVENT_TYPE}" == "pull_request
 	tar -xzvf vlcp-controller-test.tar.gz
 	cp dist/*.whl vlcp-controller-test-master/
 	pushd vlcp-controller-test-master/
-	bash -xe starttest.sh $venv
+	bash -xe starttest.sh $venv ${KV_DB}
 fi
